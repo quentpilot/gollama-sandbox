@@ -1,12 +1,15 @@
 services:
   sandbox:
     build: .
+    command: reflex -c reflex.conf
     ports:
       - "8080:8080"
     depends_on:
       - ollama
     environment:
       - GIN_MODE=release
+    volumes:
+      - .:/app
 
   ollama:
     image: ollama/ollama
@@ -16,7 +19,7 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     entrypoint: >
-      sh -c "ollama serve & sleep 2 && ollama pull llama3 && wait"
+      sh -c "ollama serve & sleep 2 && ollama pull llama3.2 && wait"
 
 volumes:
   ollama_data:

@@ -1,5 +1,7 @@
 # Dockerfile
-FROM golang:1.22
+FROM golang:1.23
+
+RUN go install github.com/cespare/reflex@latest
 
 WORKDIR /app
 COPY . .
@@ -9,4 +11,5 @@ RUN go build -o sandbox .
 
 EXPOSE 8080
 
-CMD ["./sandbox"]
+#CMD ["./sandbox"]
+CMD ["go", "run", "."]
